@@ -22,7 +22,8 @@ const RestausantSchema = mongoose.Schema({
     }],
     hours: String,
     description: String,
-    typeOfFood: String
+    typeOfFood: String,
+    picture: String
 })
 
 const Restaurant = mongoose.model('Restaurant', RestausantSchema);
