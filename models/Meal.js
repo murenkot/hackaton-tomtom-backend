@@ -8,10 +8,10 @@ const MealSchema = mongoose.Schema({
     price: Number,
     discountedPrice: Number,
     inventory: Number,
-    restaurant: [{
+    restaurant: {
         type: Schema.Types.ObjectId,
         ref: "Restaurant",
-    }],
+    },
     picture: String
 });
 
