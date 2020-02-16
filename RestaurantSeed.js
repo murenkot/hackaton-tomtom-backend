@@ -1,7 +1,6 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+const db = require('./models');
 
-const RestausantSchema = mongoose.Schema(
+const Restaurants = [
 	{
     name: "Thainery",
     address: "380 Bush St #3, San Francisco, CA 94104",
@@ -9,10 +8,10 @@ const RestausantSchema = mongoose.Schema(
         long: -122.403795,
         lat: 37.790905,
     },
-    active: {
-        type: Boolean,
-        default: false,
-    },
+    // active: {
+    //     type: Boolean,
+    //     default: false,
+    // },
     hours: "10am -10pm",
     description: "Thai food fast",
     typeOfFood: "thai, curry"
@@ -24,10 +23,10 @@ const RestausantSchema = mongoose.Schema(
 				long: -122.398731,
 				lat: 37.787466,
 		},
-		active: {
-				type: Boolean,
-				default: false,
-		},
+		// active: {
+		// 		type: Boolean,
+		// 		default: false,
+		// },
 		hours: "10am -10pm",
 		description: "Upscale chain restaurant serving cocktails & modern riffs on Thai classics in a stylish setting.",
 		typeOfFood: "thai, curry"
@@ -39,10 +38,10 @@ const RestausantSchema = mongoose.Schema(
 				long: -122.399093,
 				lat: 37.783462,
 		},
-		active: {
-				type: Boolean,
-				default: false,
-		},
+		// active: {
+		// 		type: Boolean,
+		// 		default: false,
+		// },
 		hours: "10am -10pm",
 		description: "Spacious eatery near Moscone Center serving classic Thai dishes & offering free delivery",
 		typeOfFood: "thai, curry"
@@ -54,10 +53,10 @@ const RestausantSchema = mongoose.Schema(
 				long: -122.398482,
 				lat: 37.783647,
 		},
-		active: {
-				type: Boolean,
-				default: false,
-		},
+		// active: {
+		// 		type: Boolean,
+		// 		default: false,
+		// },
 		hours: "10am -10pm",
 		description: "Curries & other Thai classics are offered at this chic, contemporary local chain outpost.",
 		typeOfFood: "thai, curry"
@@ -69,10 +68,10 @@ const RestausantSchema = mongoose.Schema(
 				long: -122.399046,
 				lat: 37.787484,
 		},
-		active: {
-				type: Boolean,
-				default: false,
-		},
+		// active: {
+		// 		type: Boolean,
+		// 		default: false,
+		// },
 		hours: "10am -10pm",
 		description: "Buzzy, brick-lined Italian spot serving clever East Coast-style pies, plus craft draft beer & wine",
 		typeOfFood: "pizza"
@@ -84,10 +83,10 @@ const RestausantSchema = mongoose.Schema(
 				long: -122.397483,
 				lat: 37.782475,
 		},
-		active: {
-				type: Boolean,
-				default: false,
-		},
+		// active: {
+		// 		type: Boolean,
+		// 		default: false,
+		// },
 		hours: "10am -10pm",
 		description: "SoMa outpost of a local chain serving up signature thin-crust pizzas close to AT&T Park",
 		typeOfFood: "pizza"
@@ -99,10 +98,10 @@ const RestausantSchema = mongoose.Schema(
 				long: -122.396004,
 				lat: 37.781662,
 		},
-		active: {
-				type: Boolean,
-				default: false,
-		},
+		// active: {
+		// 		type: Boolean,
+		// 		default: false,
+		// },
 		hours: "10am -10pm",
 		description: "Compact, basic counter serve with late-night hours dishing out slices, pies, wings & burgers.",
 		typeOfFood: "pizza"
@@ -114,10 +113,10 @@ const RestausantSchema = mongoose.Schema(
 				long: -122.392579,
 				lat: 37.782423,
 		},
-		active: {
-				type: Boolean,
-				default: false,
-		},
+		// active: {
+		// 		type: Boolean,
+		// 		default: false,
+		// },
 		hours: "10am -10pm",
 		description: "Housemade brews, pub grub & brunch are served at this restaurant plus bar near AT&T Park",
 		typeOfFood: "pizza"
@@ -129,10 +128,10 @@ const RestausantSchema = mongoose.Schema(
 				long: -122.395640,
 				lat: 37.788425,
 		},
-		active: {
-				type: Boolean,
-				default: false,
-		},
+		// active: {
+		// 		type: Boolean,
+		// 		default: false,
+		// },
 		hours: "10am -10pm",
 		description: "Casual eatery featuring Asian street food that's made to order from organic ingredients.",
 		typeOfFood: "Asian"
@@ -144,16 +143,28 @@ const RestausantSchema = mongoose.Schema(
 				long: -122.399399,
 				lat: 37.789910,
 		},
-		active: {
-				type: Boolean,
-				default: false,
-		},
+		// active: {
+		// 		type: Boolean,
+		// 		default: false,
+		// },
 		hours: "10am -10pm",
 		description: "Classic dim sum served from carts is the main draw at this bustling Chinese standby",
 		typeOfFood: "Asian"
 	},
-)
+];
 
-const Restaurant = mongoose.model('Restaurant', RestausantSchema);
+// remove all records that match {} -- which means remove ALL records
+db.Restaurant.deleteMany({}, function(err, books){
+  if(err) {
+    console.log('Error occurred in remove', err);
+  } else {
+    console.log('removed all Restaurants');
 
-module.exports = Restaurant;
+    // create new records based on the array books_list
+    db.Restaurant.create(Restaurants, function(err, books){
+      if (err) { return console.log('err', err); }
+      console.log("created", Restaurants.length, "Restaurant");
+      process.exit();
+    });
+  }
+});
