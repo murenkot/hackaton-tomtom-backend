@@ -16,6 +16,14 @@ const RestausantSchema = mongoose.Schema({
         type: Schema.Types.ObjectId,
         ref: "Meals",
     }],
+    orders: [{
+        type: Schema.Types.ObjectId,
+        ref: "Orders"
+    }],
+    hours: String,
+    description: String,
+    typeOfFood: String,
+    picture: String
 })
 
 const Restaurant = mongoose.model('Restaurant', RestausantSchema);

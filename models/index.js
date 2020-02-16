@@ -14,5 +14,5 @@ mongoose.connect(dbUrl, {
 
 module.exports = {
     Restaurant: require('./Restaurant'),
-  
+    Meal: require('./Meal')
 }
