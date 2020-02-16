@@ -1,7 +1,6 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+const db = require('./models');
 
-const RestausantSchema = mongoose.Schema(
+const Restaurants = [
 	{
     name: "Thainery",
     address: "380 Bush St #3, San Francisco, CA 94104",
@@ -152,8 +151,20 @@ const RestausantSchema = mongoose.Schema(
 		description: "Classic dim sum served from carts is the main draw at this bustling Chinese standby",
 		typeOfFood: "Asian"
 	},
-)
+];
 
-const Restaurant = mongoose.model('Restaurant', RestausantSchema);
+// remove all records that match {} -- which means remove ALL records
+db.Restaurant.deleteMany({}, function(err, books){
+  if(err) {
+    console.log('Error occurred in remove', err);
+  } else {
+    console.log('removed all Restaurants');
 
-module.exports = Restaurant;
+    // create new records based on the array books_list
+    db.Restaurant.create(Restaurants, function(err, books){
+      if (err) { return console.log('err', err); }
+      console.log("created", Restaurant.length, "Restaurant");
+      process.exit();
+    });
+  }
+});
